@@ -12,7 +12,9 @@ const Detail = (props) => {
         </Background> 
 
         <ImageTitle>
+          <h1>
         Title (Belum Final)
+          </h1>
         </ImageTitle>
     </Container>
     );
