@@ -1,16 +1,32 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { selectUserStatus, __getUserLogin } from "../redux/modules/user/userSlice";
 
 const LoginForm = ({ isShow }) => {
-  if (isShow) {
+  const [input, setInput] = useState('')
+
+  const userStatus = useSelector(selectUserStatus)
+
+  const dispatch = useDispatch()
+
+  const getUserLogin = () => {
+    dispatch(__getUserLogin(input))
+  }
+
+  const handleChangeInput = ({target:{value,name}}) =>{
+    setInput({ ...input, [name]: value })
+  }
+  if (isShow && !userStatus) {
     return (
       <Form>
         <Title>Login</Title>
         <FormItem>
           <Label>Username</Label>
-          <FormInput />
+          <FormInput name="username" onChange={handleChangeInput}/>
           <Label>Password</Label>
-          <FormInput type={"password"} />
-          <BtnLogin>LOGIN</BtnLogin>
+          <FormInput name="password" type={"password"} onChange={handleChangeInput} />
+          <BtnLogin onClick={() => getUserLogin()}>LOGIN</BtnLogin>
         </FormItem>
       </Form>
     );
