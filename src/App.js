@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
+import Home from "./components/Home";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Detail from "./components/Detail";
@@ -17,6 +18,7 @@ function App() {
         <Header handleClickLogin={handleClickLogin}/>
         <Routes>
           <Route path="/detail/:id" element={<Detail/>}></Route>
+          <Route path="/home" element={<Home/>}></Route>
           <Route path="/" element={<Login isLoginShow={login}/>}></Route>
         </Routes>
       </BrowserRouter>
