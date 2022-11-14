@@ -1,8 +1,6 @@
-import { useState } from "react";
 import styled from "styled-components";
-import LoginForm from "./LoginForm";
 
-const Login = ({isLoginShow}) => {
+const Login = () => {
   return (
     <Container>
       <Content>
@@ -17,12 +15,10 @@ const Login = ({isLoginShow}) => {
           <CTALogoTwo src="/images/cta-logo-two.png" alt="" />
         </CTA>
         <BgImage />
-        <LoginForm isShow={isLoginShow}/>
       </Content>
     </Container>
   );
 };
-
 export default Login;
 
 const Container = styled.div`
