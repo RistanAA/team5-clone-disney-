@@ -1,48 +1,73 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { selectUserStatus, __getUserLogin } from "../redux/modules/user/userSlice";
+import {
+  selectUserStatus,
+  __getUserLogin,
+} from "../redux/modules/user/userSlice";
 
 const LoginForm = ({ isShow }) => {
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState("");
 
-  const userStatus = useSelector(selectUserStatus)
+  const userStatus = useSelector(selectUserStatus);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const getUserLogin = () => {
-    dispatch(__getUserLogin(input))
-  }
+    dispatch(__getUserLogin(input));
+  };
 
-  const handleChangeInput = ({target:{value,name}}) =>{
-    setInput({ ...input, [name]: value })
-  }
+  const handleChangeInput = ({ target: { value, name } }) => {
+    setInput({ ...input, [name]: value });
+  };
   if (isShow && !userStatus) {
     return (
-      <Form>
-        <Title>Login</Title>
-        <FormItem>
-          <Label>Username</Label>
-          <FormInput name="username" onChange={handleChangeInput}/>
-          <Label>Password</Label>
-          <FormInput name="password" type={"password"} onChange={handleChangeInput} />
-          <BtnLogin onClick={() => getUserLogin()}>LOGIN</BtnLogin>
-        </FormItem>
-      </Form>
+      <Container>
+        <Form>
+          <Title>Login</Title>
+          <FormItem>
+            <Label>Username</Label>
+            <FormInput name="username" onChange={handleChangeInput} />
+            <Label>Password</Label>
+            <FormInput
+              name="password"
+              type={"password"}
+              onChange={handleChangeInput}
+            />
+            <BtnLogin onClick={() => getUserLogin()}>LOGIN</BtnLogin>
+            <BtnLogin onClick={() => getUserLogin()}>Cancel</BtnLogin>
+          </FormItem>
+        </Form>
+      </Container>
     );
   }
 };
 
 export default LoginForm;
+const Container = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:target {
+    background-color: white;
+  }
+`;
 
 const Form = styled.form`
   background-color: #040714;
-  margin-top: 100px;
+  margin-top: 80px;
   position: fixed;
   height: 80%;
   width: 650px;
   justify-content: center;
   border-radius: 12px;
+  z-index: 11;
 
   transform-origin: left center;
   transform: scaleX(1);
