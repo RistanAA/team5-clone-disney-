@@ -22,6 +22,7 @@ const Recommends = (props) => {
       <Content>
         <Carousel {...settings}>
           {movies.map((item, index) => {
+          //console.log(item)
             return (
               <Wrap key={index}>
                 {/* {movies[key].id} */}
