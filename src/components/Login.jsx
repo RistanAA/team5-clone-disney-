@@ -1,6 +1,4 @@
-import { useState } from "react";
 import styled from "styled-components";
-import LoginForm from "./LoginForm";
 
 const Login = ({isLoginShow, handleClickLogin}) => {
   return (
@@ -22,7 +20,6 @@ const Login = ({isLoginShow, handleClickLogin}) => {
     </Container>
   );
 };
-
 export default Login;
 
 const Container = styled.div`
