@@ -17,7 +17,7 @@ function App() {
         <Header handleClickLogin={handleClickLogin}/>
         <Routes>
           <Route path="/home" element={<Home/>}></Route>
-          <Route path="/" element={<Login isLoginShow={login}/>}></Route>
+          <Route path="/" element={<Login isLoginShow={login} handleClickLogin={handleClickLogin}/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

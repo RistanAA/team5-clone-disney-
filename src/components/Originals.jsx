@@ -1,55 +1,25 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { selectRecommend } from "../features/movie/movieSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { selectOriginal, __getMovie } from "../redux/modules/movie/movieSlice";
 
 const Originals = (props) => {
-//   const movies = useSelector(selectRecommend);
-//   console.log(movies, ":🛢️");
-
+  const movies = useSelector(selectOriginal);
   return (
     <Container>
       <h4>Original</h4>
       <Content>
-        {/* {movies &&
-          movies.map((movie, key) => ( */}
-            {/* <Wrap key={key}> */}
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.hdwallpapers.in%2Fdownload%2Fhu_tao_hd_genshin_impact_6-1600x900.jpg&f=1&nofb=1&ipt=a6db8ff94dd0fcae0b2a773f7134ae555096e8adb6439f1f81547dca0543d8c6&ipo=images" alt = "" />
-              </Link>
-            </Wrap>
-          {/* ))} */}
-
-          <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.hdwallpapers.in%2Fdownload%2Fhu_tao_hd_genshin_impact_6-1600x900.jpg&f=1&nofb=1&ipt=a6db8ff94dd0fcae0b2a773f7134ae555096e8adb6439f1f81547dca0543d8c6&ipo=images" alt = "" />
-              </Link>
-            </Wrap>
-
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.hdwallpapers.in%2Fdownload%2Fhu_tao_hd_genshin_impact_6-1600x900.jpg&f=1&nofb=1&ipt=a6db8ff94dd0fcae0b2a773f7134ae555096e8adb6439f1f81547dca0543d8c6&ipo=images" alt = "" />
-              </Link>
-            </Wrap>
-
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.hdwallpapers.in%2Fdownload%2Fhu_tao_hd_genshin_impact_6-1600x900.jpg&f=1&nofb=1&ipt=a6db8ff94dd0fcae0b2a773f7134ae555096e8adb6439f1f81547dca0543d8c6&ipo=images" alt = "" />
-              </Link>
-            </Wrap>
+      {movies.map((item, index) => {
+            return (
+              <Wrap key={index}>
+                {/* {movies[key].id} */}
+                <Link to={`/detail/` + index}>
+                  <img src={item.cardImg} alt={item.title} />
+                </Link>
+              </Wrap>
+            );
+        })}
       </Content>
     </Container>
   );

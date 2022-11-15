@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import LoginForm from "./LoginForm";
 
-const Login = ({isLoginShow}) => {
+const Login = ({isLoginShow, handleClickLogin}) => {
   return (
     <Container>
       <Content>
@@ -17,7 +17,7 @@ const Login = ({isLoginShow}) => {
           <CTALogoTwo src="/images/cta-logo-two.png" alt="" />
         </CTA>
         <BgImage />
-        <LoginForm isShow={isLoginShow}/>
+        <LoginForm isShow={isLoginShow} handleClickLogin={handleClickLogin}/>
       </Content>
     </Container>
   );

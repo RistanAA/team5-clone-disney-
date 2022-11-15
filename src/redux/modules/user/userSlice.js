@@ -44,7 +44,7 @@ const userSlice = createSlice({
     },
     extraReducers: {
         [__getUserLogin.fulfilled]: (state, action) => {
-            alert('success')
+            // alert('success')
             state.name = action.payload[0].name
             state.email = action.payload[0].email
             state.photo = action.payload[0].photo

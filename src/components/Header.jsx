@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   selectUserName,
@@ -14,9 +15,10 @@ const Header = ({ handleClickLogin }) => {
   // const dispatch = useDispatch()
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
+  
 
   useEffect(() => {
-    console.log(userName);
+    // console.log(userName);
   }, [userName]);
   // const getUserLogin = () => {
   //   dispatch(__getUserLogin())
@@ -31,14 +33,14 @@ const Header = ({ handleClickLogin }) => {
       ) : (
         <>
           <NavMenu>
-            <a href="/">
+            <Link to="/home">
               <img src="/images/home-icon.svg" alt="Home" />
               <span>HOME</span>
-            </a>
-            <a href="/">
+            </Link>
+            <Link to="/">
               <img src="/images/search-icon.svg" alt="Search" />
               <span>SEARCH</span>
-            </a>
+            </Link>
             <a href="/">
               <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
               <span>WATCHLIST</span>

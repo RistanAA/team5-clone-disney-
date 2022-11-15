@@ -1,55 +1,26 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { selectRecommend } from "../features/movie/movieSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { selectNewDisney, __getMovie } from "../redux/modules/movie/movieSlice";
+import { useSelector } from "react-redux";
 
 const NewDisney = (props) => {
-//   const movies = useSelector(selectRecommend);
-//   console.log(movies, ":🛢️");
-
+  const movies = useSelector(selectNewDisney);
   return (
     <Container>
       <h4>New Disney</h4>
       <Content>
-        {/* {movies &&
-          movies.map((movie, key) => ( */}
-            {/* <Wrap key={key}> */}
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://images.alphacoders.com/127/1273175.jpg" alt = "" />
-              </Link>
-            </Wrap>
-          {/* ))} */}
-
-          <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://images.alphacoders.com/127/1273175.jpg" alt = "" />
-              </Link>
-            </Wrap>
-
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://images.alphacoders.com/127/1273175.jpg" alt = "" />
-              </Link>
-            </Wrap>
-
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://images.alphacoders.com/127/1273175.jpg" alt = "" />
-              </Link>
-            </Wrap>
+      {movies.map((item, index) => {
+            return (
+              <Wrap key={index}>
+                {/* {movies[key].id} */}
+                <Link to={`/detail/` + index}>
+                  <img src={item.cardImg} alt={item.title} />
+                </Link>
+              </Wrap>
+            );
+        })}
       </Content>
     </Container>
   );

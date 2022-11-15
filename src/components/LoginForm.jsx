@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   selectUserStatus,
   __getUserLogin,
 } from "../redux/modules/user/userSlice";
 
-const LoginForm = ({ isShow }) => {
+const LoginForm = ({ isShow, handleClickLogin }) => {
   const [input, setInput] = useState("");
+  const [status, setStatus] = useState(false);
+  const navigate = useNavigate();
 
   const userStatus = useSelector(selectUserStatus);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setStatus(userStatus)
+    console.log(status)
+  },[userStatus]);
+  
+  if(status){
+    console.log('tes')
+    navigate('/home')
+  }
   const getUserLogin = () => {
     dispatch(__getUserLogin(input));
   };
@@ -20,10 +32,16 @@ const LoginForm = ({ isShow }) => {
   const handleChangeInput = ({ target: { value, name } }) => {
     setInput({ ...input, [name]: value });
   };
+
+  const handleClose = ({ target: { id } }) => {
+    if (id === "outSideForm") {
+      handleClickLogin();
+    }
+  };
   if (isShow && !userStatus) {
     return (
-      <Container>
-        <Form>
+      <Container onClick={handleClose} id="outSideForm">
+        <Form onsu>
           <Title>Login</Title>
           <FormItem>
             <Label>Username</Label>
@@ -34,9 +52,12 @@ const LoginForm = ({ isShow }) => {
               type={"password"}
               onChange={handleChangeInput}
             />
-            <BtnLogin onClick={() => getUserLogin()}>LOGIN</BtnLogin>
-            <BtnLogin onClick={() => getUserLogin()}>Cancel</BtnLogin>
           </FormItem>
+          <BtnContainer>
+            <BtnLogin onClick={() => getUserLogin()}>LOGIN</BtnLogin>
+            <span>or</span>
+            <BtnLogin>Sign Up</BtnLogin>
+          </BtnContainer>
         </Form>
       </Container>
     );
@@ -49,14 +70,10 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 10;
+  z-index: 12;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  &:target {
-    background-color: white;
-  }
 `;
 
 const Form = styled.form`
@@ -100,14 +117,28 @@ const FormInput = styled.input`
   padding: 0 12px;
 `;
 
-const BtnLogin = styled.a`
+const BtnContainer = styled.div`
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 2;
+
+  span {
+    padding: 10px;
+  }
+`;
+
+const BtnLogin = styled.a`
+  /* margin-top: 40px; */
   height: 35px;
   width: 450px;
   border: 1px solid white;
   border-radius: 12px;
   padding: 0 12px;
+  text-align: center;
   transition: all 0.2s ease 0s;
+  cursor: pointer;
 
   &:hover {
     background-color: #f9f9f9;

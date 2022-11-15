@@ -1,55 +1,25 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { selectRecommend } from "../features/movie/movieSlice";
+import { selectRecommend, __getMovie } from "../redux/modules/movie/movieSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Recommends = (props) => {
-//   const movies = useSelector(selectRecommend);
-//   console.log(movies, ":🛢️");
-
+  const movies = useSelector(selectRecommend);
+  // console.log(movies);
   return (
     <Container>
       <h4>Recommended for You</h4>
       <Content>
-        {/* {movies &&
-          movies.map((movie, key) => ( */}
-            {/* <Wrap key={key}> */}
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://img1.hotstarext.com/image/upload/f_auto,t_hcdl/sources/r1/cms/prod/5040/1405040-h-745f9aa52bbc" alt = "" />
-              </Link>
-            </Wrap>
-          {/* ))} */}
-
-          <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://images.freekaamaal.com/post_images/1598267970.jpg" alt = "" />
-              </Link>
-            </Wrap>
-
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://starsubscription.com/wp-content/uploads/2021/03/Screenshot-2021-03-28-at-10.24.22-AM.png" alt = "" />
-              </Link>
-            </Wrap>
-
-            <Wrap>
-              {/* {movie.id} */}
-              {/* <Link to={`/detail/` + movie.id}> */}
-              <Link to = "/">
-                {/* <img src={movie.cardImg} alt={movie.title} /> */}
-                <img src = "https://images.freekaamaal.com/post_images/1583481356.png" alt = "" />
-              </Link>
-            </Wrap>
+        {movies.map((item, index) => {
+            return (
+              <Wrap key={index}>
+                {/* {movies[key].id} */}
+                <Link to={`/detail/` + index}>
+                  <img src={item.cardImg} alt={item.title} />
+                </Link>
+              </Wrap>
+            );
+        })}
       </Content>
     </Container>
   );
