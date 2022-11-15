@@ -2,24 +2,14 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { selectRecommend, __getMovie } from "../redux/modules/movie/movieSlice";
 import { useDispatch, useSelector } from "react-redux";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-
 
 const Recommends = (props) => {
-  let settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 8
-  };
   const movies = useSelector(selectRecommend);
   // console.log(movies);
   return (
     <Container>
       <h4>Recommended for You</h4>
-      <Carousel {...settings}>
+      <Content>
         {movies.map((item, index) => {
             return (
               <Wrap key={index}>
@@ -30,7 +20,7 @@ const Recommends = (props) => {
               </Wrap>
             );
         })}
-      </Carousel>
+      </Content>
     </Container>
   );
 };
@@ -39,53 +29,14 @@ const Container = styled.div`
   padding: 0 0 26px;
 `;
 
-// const Content = styled.div`
-//   display: grid;
-//   grid-gap: 25px;
-//   gap: 25px;
-//   grid-template-columns: repeat(4, minmax(0, 1fr));
+const Content = styled.div`
+  display: grid;
+  grid-gap: 25px;
+  gap: 25px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
-//   @media (max-width: 768px) {
-//     grid-template-columns: repeat(2, minmax(0, 1fr));
-//   }
-// `;
-
-const Carousel = styled(Slider)`
-  margin-top: 20px;
-
-  & > button {
-    opacity: 0;
-    height: 100%;
-    width: 5vw;
-    z-index: 1;
-
-    &:hover {
-      opacity: 1;
-      transition: opacity 0.2s ease 0s;
-    }
-  }
-
-  ul li button {
-    &:before {
-      font-size: 10px;
-      color: rgb(150, 158, 171);
-    }
-  }
-
-  li.slick-active button:before {
-    color: white;
-  }
-
-  .slick-list {
-    overflow: initial;
-  }
-
-  .slick-prev {
-    left: -75px;
-  }
-
-  .slick-next {
-    right: -75px;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `;
 
