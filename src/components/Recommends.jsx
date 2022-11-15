@@ -11,6 +11,7 @@ const Recommends = (props) => {
       <h4>Recommended for You</h4>
       <Content>
         {movies.map((item, index) => {
+          console.log(item)
             return (
               <Wrap key={index}>
                 {/* {movies[key].id} */}

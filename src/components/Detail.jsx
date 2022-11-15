@@ -1,25 +1,43 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import {
+  selectSelectedMovie,
+  __getMovieById,
+} from "../redux/modules/movie/movieSlice";
 
 const Detail = (props) => {
-    return (
+  const movie = useSelector((state)=> state.movie.selectedMovie);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(__getMovieById(id));
+  }, [movie]);
+
+  // console.log("movie");
+  // console.log(movie);
+  return (
     <Container>
-        <Background>
-            <img
-            alt=""
-            src="/images/login-background.jpg"
-            // src="https://prod-delivery.disney-plus.net/v1/variant/disey/49B92C046117E89BC9243A68EE277A3B0D551D4599F23C10BF0B8C1E98AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg"
-            />
-        </Background> 
+      <Background>
+        <img
+          alt=""
+          src={movie?movie.backgroundImg :"/images/login-background.jpg"}
+          // src="https://prod-delivery.disney-plus.net/v1/variant/disey/49B92C046117E89BC9243A68EE277A3B0D551D4599F23C10BF0B8C1E98AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg"
+        />
+      </Background>
 
-        <ImageTitle>
-          <h1>
-        Title (Belum Final)
-          </h1>
-        </ImageTitle>
+      <ImageTitle>
+      <img
+          alt=""
+          src={movie?movie.titleImg :"/images/login-background.jpg"}
+          // src="https://prod-delivery.disney-plus.net/v1/variant/disey/49B92C046117E89BC9243A68EE277A3B0D551D4599F23C10BF0B8C1E98AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg"
+        />
+      </ImageTitle>
 
-        <ContentMeta>
-          <Controls>
-
+      <ContentMeta>
+        <Controls>
           <Player>
             <img src="/images/play-icon-black.png" alt="" />
             <span>Play</span>
@@ -40,30 +58,23 @@ const Detail = (props) => {
               <img src="/images/group-icon.png" alt="" />
             </div>
           </GroupWatch>
-          </Controls>
+        </Controls>
 
-          <SubTitle>
-            Subtitle
-          </SubTitle>
+        <SubTitle>{movie? movie.subTitle:"title"}</SubTitle>
 
-          <Description>
-            Description
-          </Description>
-
-
-        </ContentMeta>
-
+        <Description>{movie?  movie.description : "description"}</Description>
+      </ContentMeta>
     </Container>
-    );
+  );
 };
 
 const Container = styled.div`
-position: relative;
-min-height: calc(100vh-250px);
-overflow-x: hidden;
-display: block;
-top: 72px;
-padding: 0 calc(3.5vw + 5px);
+  position: relative;
+  min-height: calc(100vh-250px);
+  overflow-x: hidden;
+  display: block;
+  top: 72px;
+  padding: 0 calc(3.5vw + 5px);
 `;
 
 const Background = styled.div`
@@ -82,8 +93,8 @@ const Background = styled.div`
   }
 `;
 
-const ImageTitle=styled.div`
- align-items: flex-end;
+const ImageTitle = styled.div`
+  align-items: flex-end;
   display: flex;
   -webkit-box-pack: start;
   justify-content: flex-start;
@@ -96,7 +107,7 @@ const ImageTitle=styled.div`
     max-width: 600px;
     min-width: 200px;
     width: 35vw;
-  };
+  }
 `;
 
 const ContentMeta = styled.div`
@@ -143,41 +154,40 @@ const Player = styled.button`
       width: 25px;
     }
   }
-  `;
+`;
 
-  const Trailer = styled(Player)`
+const Trailer = styled(Player)`
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgb(249, 249, 249);
   color: rgb(249, 249, 249);
-  `;
-
-const AddList = styled.div`
-margin-right: 16px;
-height: 44px;
-width: 44px;
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: rgba(0, 0, 0, 0.6);
-border-radius: 50%;
-border: 2px solid white;
-cursor: pointer;
-span {
-  background-color: rgb(249, 249, 249);
-  display: inline-block;
-  &:first-child {
-    height: 2px;
-    transform: translate(1px, 0px) rotate(0deg);
-    width: 16px;
-  }
-  &:nth-child(2) {
-    height: 16px;
-    transform: translateX(-8px) rotate(0deg);
-    width: 2px;
-  }
-}
 `;
 
+const AddList = styled.div`
+  margin-right: 16px;
+  height: 44px;
+  width: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+  span {
+    background-color: rgb(249, 249, 249);
+    display: inline-block;
+    &:first-child {
+      height: 2px;
+      transform: translate(1px, 0px) rotate(0deg);
+      width: 16px;
+    }
+    &:nth-child(2) {
+      height: 16px;
+      transform: translateX(-8px) rotate(0deg);
+      width: 2px;
+    }
+  }
+`;
 
 const GroupWatch = styled.div`
   height: 44px;
@@ -218,7 +228,4 @@ const Description = styled.div`
   }
 `;
 
-
-
-
-export default Detail
+export default Detail;
