@@ -15,7 +15,7 @@ export const __getMovie = createAsyncThunk(
     'getMovie',
     async (payload, thunkApi) => {
         try {
-            const { data } = await axios.get(`${rootURL}/movies?type=recommend`)
+            const { data } = await axios.get(`${rootURL}/movies`)
             // console.log(data)
             return thunkApi.fulfillWithValue(data)
 
