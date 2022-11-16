@@ -12,27 +12,30 @@ const Recommends = (props) => {
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4
-  }
+    slidesToScroll: 4,
+  };
   const movies = useSelector(selectRecommend);
   // console.log(movies);
   return (
     <Container>
-      <h4>Recommended for You</h4>
+      <h3>Recommended for You</h3>
       <Content>
         <Carousel {...settings}>
           {movies.map((item, index) => {
-          //console.log(item)
+            //console.log(item)
             return (
-              <Wrap key={index}>
-                {/* {movies[key].id} */}
+              <WrapContainer>
                 <Link to={`/detail/` + index}>
-                  <img src={item.cardImg} alt={item.title} />
+                  <Wrap key={index}>
+                    {/* {movies[key].id} */}
+                    <img src={item.cardImg} alt={item.title} />
+                    <DescCon>
+                      <Title>{item.title}</Title>
+                      <Description>{item.description}</Description>
+                    </DescCon>
+                  </Wrap>
                 </Link>
-                <DescCon>
-                <Description>Sesuatu</Description>
-                </DescCon>
-              </Wrap>
+              </WrapContainer>
             );
           })}
         </Carousel>
@@ -42,25 +45,49 @@ const Recommends = (props) => {
 };
 
 const DescCon = styled.div`
-  display:flex;
-  height:50%;
-  background-color:black;
-  z-index:14;
-`
-
-const Description = styled.p`
-  margin-top: 30%;
-  background: rgb(0,0,0);
-  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6783088235294117) 100%); 100%);
+  display: flex;
+  flex-direction: column;
+  /* padding-top: 60px; */
+  padding: 40px 20px;
+  height: 100%;
+  width: 100%;
+  background: rgb(4, 7, 20);
+  background: linear-gradient(
+    0deg,
+    rgba(4, 7, 20, 0.8799894957983193) 24%,
+    rgba(4, 7, 20, 0.3981967787114846) 100%
+  );
   position: fixed;
-  z-index:15;
-`
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+`;
+
+const Description = styled.div`
+  /* background-color: red; */
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  font-size: 10px;
+  z-index: 1;
+`;
+const Title = styled.h3`
+  /* background-color: red; */
+  /* font-size: 12px;
+  font-weight: bold; */
+  z-index: 1;
+`;
 
 const Carousel = styled(Slider)`
-  margin-top: 20px;
-  padding left: 200px;
+  /* margin-top: 20px; */
+  /* padding-left: 200px; */
+  /* background-color: red; */
   height: 100%;
-  width:100%;
+  width: 100%;
   z-index: 3;
 
   & > button {
@@ -91,15 +118,27 @@ const Carousel = styled(Slider)`
   }
 
   .slick-prev {
-    left: -75px;
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6783088235294117) 100%); 100%);
+    left: -60px;
+    margin-top: 5px;
+    width: 80px;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .slick-next {
-    right: -75px;
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6783088235294117) 100%);
+    right: -60px;
+    margin-top: 5px;
+    width: 80px;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
   }
 `;
 
@@ -110,18 +149,23 @@ const Container = styled.div`
 
 const Content = styled.div`
   display: flex;
-  gap : 25px;
+  /* gap: 45px; */
   width: 100%;
-  height: 250px;
+  height: 200px;
+  /* background-color: red; */
+`;
+
+const WrapContainer = styled.div`
+  padding: 5px;
 `;
 
 const Wrap = styled.div`
-  padding-top: 20px;
-  width: 170px;
-  height: 225px;
+  /* padding-top: 20px; */
+  width: 100%;
+  height: 200px;
   border-radius: 5px;
   box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-  rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
   cursor: pointer;
   overflow: hidden;
   position: relative;
@@ -146,10 +190,14 @@ const Wrap = styled.div`
       rgb(0 0 0 / 72%) 0px 30px 22px -10px;
     transform: scale(1.2);
     z-index: 2;
-    border:2px;
-    opacity: 0.9;
+    border: 2px;
+    opacity: 1;
+    div {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.2s ease 0s;
+    }
   }
 `;
 
 export default Recommends;
-

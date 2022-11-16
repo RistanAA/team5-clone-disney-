@@ -9,22 +9,13 @@ import {
 
 const LoginForm = ({ isShow, handleClickLogin }) => {
   const [input, setInput] = useState("");
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
   const userStatus = useSelector(selectUserStatus);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setStatus(userStatus)
-    console.log(status)
-  },[userStatus]);
-  
-  if(status){
-    console.log('tes')
-    navigate('/home')
-  }
   const getUserLogin = () => {
     dispatch(__getUserLogin(input));
   };
@@ -85,15 +76,6 @@ const Form = styled.form`
   justify-content: center;
   border-radius: 12px;
   z-index: 11;
-
-  transform-origin: left center;
-  transform: scaleX(1);
-  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  /* &:not(:focus-within) {
-  transform: scaleX(0);
-  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  } */
 `;
 const Title = styled.h1``;
 

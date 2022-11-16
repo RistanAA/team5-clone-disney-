@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header handleClickLogin={handleClickLogin}/>
+        <Header handleClickLogin={handleClickLogin} statusLogin={login}/>
         <Routes>
           <Route path="/home" element={<Home/>}></Route>
           <Route path="/detail/:id" element={<Detail/>}></Route>
