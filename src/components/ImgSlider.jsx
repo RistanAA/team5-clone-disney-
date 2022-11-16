@@ -5,7 +5,7 @@ import Slider from "react-slick";
 
 const ImgSlider = (props) => {
   let settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -15,34 +15,55 @@ const ImgSlider = (props) => {
   return (
     <Carousel {...settings}>
       <Wrap>
+        <hero>
+          <text> Example</text>
+          <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/1710/1401710-h-d5b5b38f351d" alt=""></img>
+        </hero>
+      </Wrap>
+
+      <Wrap>
+        <hero>
+          <text> This is Example text</text>
+          <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/4166/764166-h" alt=""></img>
+        </hero>
+      </Wrap>
+
+      {/* <Wrap>
         <a>
-          <img src="/images/slider-badging.jpg" alt="" />
+          <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/4324/1404324-h-99edfa90363d" alt="" />
         </a>
       </Wrap>
 
       <Wrap>
         <a>
-          <img src="/images/slider-scale.jpg" alt="" />
+          <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/9962/1409962-h-c25ae6aa178a" alt="" />
         </a>
       </Wrap>
 
       <Wrap>
         <a>
-          <img src="/images/slider-badag.jpg" alt="" />
+          <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/5460/1355460-h-5d64b6c3362f" alt="" />
         </a>
       </Wrap>
 
       <Wrap>
         <a>
-          <img src="/images/slider-scales.jpg" alt="" />
+          <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/5799/1375799-h-5b1d33cc0f0f" alt="" />
         </a>
       </Wrap>
+
+      <Wrap>
+        <a>
+          <img src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/6460/1396460-h-8e67db6c9630" alt="" />
+        </a>
+      </Wrap> */}
     </Carousel>
   );
 };
 
 const Carousel = styled(Slider)`
   margin-top: 20px;
+  height: 500px;
 
   & > button {
     opacity: 0;
@@ -84,19 +105,37 @@ const Wrap = styled.div`
   border-radius: 4px;
   cursor: pointer;
   position: relative;
+  width: 100%;
+  height: 500px;
+  z-index:4;
 
-  a {
-    border-radius: 4px;
-    box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-      rgb(0 0 0 / 73%) 0px 16px 10px -10px;
-    cursor: pointer;
-    display: block;
-    position: relative;
-    padding: 4px;
+  hero {
+    width: 100%;
+    height: 500px;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+    background-image:img;
+  }
+
+  
+  text {
+    margin-top: 15px;
+    margin-right: 15px;
+    width: 30em;
+    height: 500px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6783088235294117) 100%); 100%);
+  }
 
     img {
       width: 100%;
       height: 100%;
+      z-index: 5;
+      padding-left:30%;
     }
 
     &:hover {
