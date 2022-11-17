@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   selectUserName,
@@ -8,17 +8,22 @@ import {
   __getUserLogin,
 } from "../redux/modules/user/userSlice";
 
-const Header = ({ handleClickLogin }) => {
+const Header = ({ handleClickLogin, statusLogin }) => {
   const handleLogin = () => {
     handleClickLogin();
   };
   // const dispatch = useDispatch()
+
+  const navigate = useNavigate()
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
   
 
   useEffect(() => {
     // console.log(userName);
+    if(statusLogin){
+      navigate('/home')
+    }
   }, [userName]);
   // const getUserLogin = () => {
   //   dispatch(__getUserLogin())
@@ -79,7 +84,7 @@ const Nav = styled.nav`
   align-items: center;
   padding: 0 36px;
   letter-spacing: 16px;
-  z-index: 3;
+  z-index: 30;
 `;
 
 const Logo = styled.a`

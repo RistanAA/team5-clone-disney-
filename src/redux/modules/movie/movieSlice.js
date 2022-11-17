@@ -6,6 +6,8 @@ const initialState = {
     newDisney: [],
     original: [],
     trending: [],
+    all: [],
+    selectedMovie: null
 }
 
 const rootURL = 'https://nameless-cliffs-97979.herokuapp.com'
@@ -14,7 +16,22 @@ export const __getMovie = createAsyncThunk(
     'getMovie',
     async (payload, thunkApi) => {
         try {
-            const { data } = await axios.get(`${rootURL}/movies?type=recommend`)
+            const { data } = await axios.get(`${rootURL}/movies`)
+            // console.log(data)
+            return thunkApi.fulfillWithValue(data)
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
+export const __getMovieById = createAsyncThunk(
+    'getMovieById',
+    async (payload, thunkApi) => {
+        try {
+            const { data } = await axios.get(`${rootURL}/movies?id=${payload}`)
             // console.log(data)
             return thunkApi.fulfillWithValue(data)
 
@@ -48,8 +65,13 @@ const movieSlice = createSlice({
                 else if (item.data.type === "original") {
                     state.original[item.id] = item.data;
                 }
+                state.all[item.id] = item.data;
             })
         },
+        [__getMovieById.fulfilled]:(state, action) => {
+            // console.log(action.payload[0].data)
+            state.selectedMovie = action.payload[0].data
+        }
     }
 })
 
@@ -59,3 +81,5 @@ export const selectRecommend = (state) => state.movie.recommend;
 export const selectNewDisney = (state) => state.movie.newDisney;
 export const selectOriginal = (state) => state.movie.original;
 export const selectTrending = (state) => state.movie.trending;
+export const selectAll = (state) => state.movie.all;
+export const selectSelectedMovie = (state) => state.movie.selectedmovie;

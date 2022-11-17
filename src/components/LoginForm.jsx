@@ -9,7 +9,7 @@ import {
 
 const LoginForm = ({ isShow, handleClickLogin }) => {
   const [input, setInput] = useState("");
-  const [status, setStatus] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const userStatus = useSelector(selectUserStatus);
@@ -17,15 +17,15 @@ const LoginForm = ({ isShow, handleClickLogin }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setStatus(userStatus)
-    console.log(status)
-  },[userStatus]);
-  
-  if(status){
-    console.log('tes')
-    navigate('/home')
-  }
+    setTimeout(() => {
+      if(!userStatus){
+        setLoading(false);
+      }
+    }, 1000);
+  }, [userStatus, loading]);
+
   const getUserLogin = () => {
+    setLoading(true);
     dispatch(__getUserLogin(input));
   };
 
@@ -38,7 +38,7 @@ const LoginForm = ({ isShow, handleClickLogin }) => {
       handleClickLogin();
     }
   };
-  if (isShow && !userStatus) {
+  if (isShow) {
     return (
       <Container onClick={handleClose} id="outSideForm">
         <Form onsu>
@@ -59,12 +59,22 @@ const LoginForm = ({ isShow, handleClickLogin }) => {
             <BtnLogin>Sign Up</BtnLogin>
           </BtnContainer>
         </Form>
+        {loading ? <Loading /> : null}
       </Container>
     );
   }
 };
 
 export default LoginForm;
+
+const Loading = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8) url("/loading/Eclipse-1s-200px.gif") center
+    no-repeat;
+  z-index: 2;
+`;
 const Container = styled.div`
   position: fixed;
   width: 100%;
@@ -84,16 +94,7 @@ const Form = styled.form`
   width: 650px;
   justify-content: center;
   border-radius: 12px;
-  z-index: 11;
-
-  transform-origin: left center;
-  transform: scaleX(1);
-  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  /* &:not(:focus-within) {
-  transform: scaleX(0);
-  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  } */
+  z-index: 1;
 `;
 const Title = styled.h1``;
 

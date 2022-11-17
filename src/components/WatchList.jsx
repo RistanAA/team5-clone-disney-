@@ -1,25 +1,14 @@
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { selectRecommend, __getMovie } from "../redux/modules/movie/movieSlice";
+import { Link } from "react-router-dom";
+import { selectAll, selectRecommend, __getMovie } from "../redux/modules/movie/movieSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {
-  selectUserWatchList,
-  __addWatchList,
-  __refreshWatchList,
-} from "../redux/modules/user/userSlice";
+import { selectUserWatchList } from "../redux/modules/user/userSlice";
 import { useEffect, useState } from "react";
 
-const Recommends = (props) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const movies = useSelector(selectRecommend);
-  const watchList = useSelector(selectUserWatchList);
-
-  const [newWatchList, setNewWatchList] = useState([]);
-
+const WatchList = () => {
   let settings = {
     dots: false,
     infinite: false,
@@ -27,75 +16,40 @@ const Recommends = (props) => {
     slidesToShow: 4,
     slidesToScroll: 4,
   };
+  const movies = useSelector(selectAll);
+  const watchList = useSelector(selectUserWatchList)
 
-  useEffect(() => {
-    dispatch(__refreshWatchList());
-    setNewWatchList(watchList);
-  }, [watchList]);
-
-  const handleWatchList = (movieId) => {
-    console.log(movieId)
-    // console.log("first")
-    // console.log(newWatchList.indexOf(movieId) > -1);
-    if (newWatchList.indexOf(movieId) > -1) {
-      setNewWatchList(newWatchList.filter((item) => item !== movieId));
-    } else {
-      setNewWatchList([...newWatchList, movieId]);
-    }
-    // console.log(newWatchList);
-    // console.log("last")
-    return addWList()
-  };
-
-  const addWList = () => {
-    setTimeout(() => {
-      console.log("newData")
-      console.log(newWatchList)
-      dispatch(__addWatchList(newWatchList));
-    }, 1000);
-  };
-
-  const handleLink = ({ target: { id } }, movieId) => {
-    if (id === "btnAdd") {
-      // console.log(data)
-      // console.log(watchList)
-      return handleWatchList(movieId);
-    }
-
-    // console.log(id);
-    // console.log(movieId);
-    navigate(`/detail/${movieId}`);
-  };
-
+  const [list, setList] = useState([])
+  useEffect(()=>{
+    setList(movies)
+  })
+  
   // console.log(movies);
+  // console.log(list);
   return (
     <Container>
-      <h3>Recommended for You</h3>
+      <h3>Watch List</h3>
       <Content>
-        <Carousel {...settings}>
-          {movies.map((item, index) => {
-            //console.log(item)
-            return (
-              <WrapContainer key={index}>
-                {/* <Link to={`/detail/` + index}> */}
-                <div onClick={(e) => handleLink(e, index)}>
-                  <Wrap>
-                    {/* {movies[key].id} */}
-                    <img src={item.cardImg} alt={item.title} />
-                    <DescCon>
-                      <Title>{item.title}</Title>
-                      <Description>{item.description}</Description>
-                      <BtnAddToList
-                        id="btnAdd"
-                        onClick={() => handleWatchList(index)}
-                      >
-                        Add to watch list
-                      </BtnAddToList>
-                    </DescCon>
-                  </Wrap>
-                </div>
-              </WrapContainer>
-            );
+        <Carousel {...settings} name={list}>
+          {list && list.map((item, index) => {
+           if(watchList.indexOf(index) > -1){
+             console.log(index)
+             return (
+               <WrapContainer key={index} >
+                 <Link to={`/detail/` + index}>
+                   <Wrap >
+                     {/* {movies[key].id} */}
+                     <img src={item.cardImg} alt={item.title} />
+                     <DescCon>
+                       <Title>{item.title}</Title>
+                       <Description>{item.description}</Description>
+                       <BtnAddToList disabled>Watch Now</BtnAddToList>
+                     </DescCon>
+                   </Wrap>
+                 </Link>
+               </WrapContainer>
+             );
+           } 
           })}
         </Carousel>
       </Content>
@@ -155,7 +109,7 @@ const BtnAddToList = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0,0,0,0.4);
     /* border-color: transparent; */
   }
 `;
@@ -278,4 +232,4 @@ const Wrap = styled.div`
   }
 `;
 
-export default Recommends;
+export default WatchList;
