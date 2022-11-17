@@ -9,14 +9,23 @@ import {
 
 const LoginForm = ({ isShow, handleClickLogin }) => {
   const [input, setInput] = useState("");
-  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const userStatus = useSelector(selectUserStatus);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setTimeout(() => {
+      if(!userStatus){
+        setLoading(false);
+      }
+    }, 1000);
+  }, [userStatus, loading]);
+
   const getUserLogin = () => {
+    setLoading(true);
     dispatch(__getUserLogin(input));
   };
 
@@ -29,7 +38,7 @@ const LoginForm = ({ isShow, handleClickLogin }) => {
       handleClickLogin();
     }
   };
-  if (isShow && !userStatus) {
+  if (isShow) {
     return (
       <Container onClick={handleClose} id="outSideForm">
         <Form onsu>
@@ -50,12 +59,22 @@ const LoginForm = ({ isShow, handleClickLogin }) => {
             <BtnLogin>Sign Up</BtnLogin>
           </BtnContainer>
         </Form>
+        {loading ? <Loading /> : null}
       </Container>
     );
   }
 };
 
 export default LoginForm;
+
+const Loading = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8) url("/loading/Eclipse-1s-200px.gif") center
+    no-repeat;
+  z-index: 2;
+`;
 const Container = styled.div`
   position: fixed;
   width: 100%;
@@ -75,7 +94,7 @@ const Form = styled.form`
   width: 650px;
   justify-content: center;
   border-radius: 12px;
-  z-index: 11;
+  z-index: 1;
 `;
 const Title = styled.h1``;
 

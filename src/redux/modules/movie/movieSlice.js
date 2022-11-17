@@ -6,6 +6,7 @@ const initialState = {
     newDisney: [],
     original: [],
     trending: [],
+    all: [],
     selectedMovie: null
 }
 
@@ -64,6 +65,7 @@ const movieSlice = createSlice({
                 else if (item.data.type === "original") {
                     state.original[item.id] = item.data;
                 }
+                state.all[item.id] = item.data;
             })
         },
         [__getMovieById.fulfilled]:(state, action) => {
@@ -79,4 +81,5 @@ export const selectRecommend = (state) => state.movie.recommend;
 export const selectNewDisney = (state) => state.movie.newDisney;
 export const selectOriginal = (state) => state.movie.original;
 export const selectTrending = (state) => state.movie.trending;
+export const selectAll = (state) => state.movie.all;
 export const selectSelectedMovie = (state) => state.movie.selectedmovie;

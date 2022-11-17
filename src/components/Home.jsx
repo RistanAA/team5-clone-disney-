@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserName } from "../redux/modules/user/userSlice";
 import { selectRecommend, __getMovie } from "../redux/modules/movie/movieSlice";
+import WatchList from "./WatchList";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const Home = () => {
     <Container>
       <ImgSlider />
       <Viewers />
+      <WatchList/>
       <Recommends />
       <NewDisney />
       <Originals />

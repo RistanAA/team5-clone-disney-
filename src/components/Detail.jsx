@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -8,65 +8,88 @@ import {
 } from "../redux/modules/movie/movieSlice";
 
 const Detail = (props) => {
-  const movie = useSelector((state)=> state.movie.selectedMovie);
+  const movie = useSelector((state) => state.movie.selectedMovie);
   const { id } = useParams();
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     dispatch(__getMovieById(id));
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }, [movie]);
 
   // console.log("movie");
   // console.log(movie);
   return (
-    <Container>
-      <Background>
-        <img
-          alt=""
-          src={movie?movie.backgroundImg :"/images/login-background.jpg"}
-          // src="https://prod-delivery.disney-plus.net/v1/variant/disey/49B92C046117E89BC9243A68EE277A3B0D551D4599F23C10BF0B8C1E98AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg"
-        />
-      </Background>
+    <div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Background>
+            <img
+              alt=""
+              src={movie ? movie.backgroundImg : "/images/login-background.jpg"}
+              // src="https://prod-delivery.disney-plus.net/v1/variant/disey/49B92C046117E89BC9243A68EE277A3B0D551D4599F23C10BF0B8C1E98AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg"
+            />
+          </Background>
 
-      <ImageTitle>
-      <img
-          alt=""
-          src={movie?movie.titleImg :"/images/login-background.jpg"}
-          // src="https://prod-delivery.disney-plus.net/v1/variant/disey/49B92C046117E89BC9243A68EE277A3B0D551D4599F23C10BF0B8C1E98AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg"
-        />
-      </ImageTitle>
+          <ImageTitle>
+            <img
+              alt=""
+              src={movie ? movie.titleImg : "/images/login-background.jpg"}
+              // src="https://prod-delivery.disney-plus.net/v1/variant/disey/49B92C046117E89BC9243A68EE277A3B0D551D4599F23C10BF0B8C1E98AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg"
+            />
+          </ImageTitle>
 
-      <ContentMeta>
-        <Controls>
-          <Player>
-            <img src="/images/play-icon-black.png" alt="" />
-            <span>Play</span>
-          </Player>
+          <ContentMeta>
+            <Controls>
+              <Player>
+                <img src="/images/play-icon-black.png" alt="" />
+                <span>Play</span>
+              </Player>
 
-          <Trailer>
-            <img src="/images/play-icon-white.png" alt="" />
-            <span>Trailer</span>
-          </Trailer>
+              <Trailer>
+                <img src="/images/play-icon-white.png" alt="" />
+                <span>Trailer</span>
+              </Trailer>
 
-          <AddList>
-            <span />
-            <span />
-          </AddList>
+              <AddList>
+                <span />
+                <span />
+              </AddList>
 
-          <GroupWatch>
-            <div>
-              <img src="/images/group-icon.png" alt="" />
-            </div>
-          </GroupWatch>
-        </Controls>
+              <GroupWatch>
+                <div>
+                  <img src="/images/group-icon.png" alt="" />
+                </div>
+              </GroupWatch>
+            </Controls>
 
-        <SubTitle>{movie? movie.subTitle:"title"}</SubTitle>
+            <SubTitle>{movie ? movie.subTitle : "title"}</SubTitle>
 
-        <Description>{movie?  movie.description : "description"}</Description>
-      </ContentMeta>
-    </Container>
+            <Description>
+              {movie ? movie.description : "description"}
+            </Description>
+          </ContentMeta>
+        </Container>
+      )}
+    </div>
   );
 };
+
+const Loading = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background: rgba(3, 1, 39, 0.834)
+    url("/loading/Eclipse-1s-200px.gif") center
+    no-repeat;
+  z-index: 1;
+`;
 
 const Container = styled.div`
   position: relative;

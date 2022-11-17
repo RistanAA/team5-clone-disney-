@@ -84,7 +84,7 @@ const Nav = styled.nav`
   align-items: center;
   padding: 0 36px;
   letter-spacing: 16px;
-  z-index: 3;
+  z-index: 30;
 `;
 
 const Logo = styled.a`

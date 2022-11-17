@@ -22,9 +22,9 @@ const Originals = (props) => {
           {movies.map((item, index) => {
             //console.log(item)
             return (
-              <WrapContainer>
+              <WrapContainer  key={index}>
                 <Link to={`/detail/` + index}>
-                  <Wrap key={index}>
+                  <Wrap>
                     {/* {movies[key].id} */}
                     <img src={item.cardImg} alt={item.title} />
                     <DescCon>
