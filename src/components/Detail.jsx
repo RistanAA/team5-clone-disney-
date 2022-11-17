@@ -252,5 +252,3 @@ const Description = styled.div`
 `;
 
 export default Detail;
-
-export default Detail
